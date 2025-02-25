@@ -13,6 +13,8 @@ $options = array(
 try {
     $client = new SoapClient(NULL, $options);
     $nombre = 'Usuario';
+    $usuario = 'fabian'; // Cambia estos valores para probar con diferentes credenciales
+    $password = '123456';
 
     echo $client->saludar($nombre) . "</br>";
 
@@ -23,6 +25,8 @@ try {
     echo "Resta: " . $client->operacion($num1, $num2, 'resta') . "</br>";
     echo "Multiplicación: " . $client->operacion($num1, $num2, 'multiplicacion') . "</br>";
     echo "División: " . $client->operacion($num1, $num2, 'division') . "</br>";
+
+    echo $client->validarUsuario($usuario, $password) . "</br>";
 
     echo "<h3>Última solicitud SOAP:</h3><pre>" . htmlspecialchars($client->__getLastRequest()) . "</pre>";
     echo "<h3>Última respuesta SOAP:</h3><pre>" . htmlspecialchars($client->__getLastResponse()) . "</pre>";

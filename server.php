@@ -38,6 +38,26 @@ class serverSoap extends Conexion {
                 return $num1 < $num2 ? 0 : 1 + $this->operacion($num1 - $num2, $num2, 'division');
         }
     }
+
+    // Método actualizado para validar el usuario
+    public function validarUsuario($usuario, $password) {
+        
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE usuario = ? AND password = ?");
+        
+        if (!$stmt) {
+            return "Error en la preparación de la consulta: " . $this->db->error;
+        }
+        
+        $stmt->bind_param("ss", $usuario, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return "Los datos ingresados son válidos";
+        } else {
+            return "Los datos ingresados no coinciden, intente de nuevo";
+        }
+    }
 }
 
 $options = array('uri' => 'http://localhost/webservices/appwebservices/');
